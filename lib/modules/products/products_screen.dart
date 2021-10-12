@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:shop_app/models/categories_model.dart';
 import 'package:shop_app/models/home_model.dart';
 import 'package:shop_app/shared/components/components.dart';
@@ -119,21 +120,45 @@ class ProductsScreen extends StatelessWidget {
             SizedBox(
           height: 15,
         ),
-            Container(
-              color: Colors.grey[300],
-              child: GridView.count(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                crossAxisCount: 2,
-                mainAxisSpacing: 1.0,
-                crossAxisSpacing: 1.0,
-                childAspectRatio: 1 / height,
-                children: List.generate(
-                    model.data!.products.length,
-                        (index) => buildGridProduct(model.data!.products[index], context)
-                ),
+        Container(
+          color: Colors.grey[300],
+          child: StaggeredGridView.countBuilder(
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            crossAxisCount: 4,
+            itemCount: 8,
+            itemBuilder: (BuildContext context, int index) => new Container(
+                color: Colors.green,
+                child: new Center(
+                  child: new CircleAvatar(
+                    backgroundColor: Colors.white,
+                    child: new Text('$index'),
+                  ),
+                )),
+            staggeredTileBuilder: (int index) =>
+            new StaggeredTile.count(2, index.isEven ? 2 : 1),
+            mainAxisSpacing: 4.0,
+            crossAxisSpacing: 4.0,
           ),
         ),
+        //     Container(
+        //       color: Colors.grey[300],
+        //       child: GridView.count(
+        //         shrinkWrap: true,
+        //         physics: NeverScrollableScrollPhysics(),
+        //         crossAxisCount: 2,
+        //         // mainAxisSpacing: 1.0,
+        //         // crossAxisSpacing: 1.0,
+        //         // childAspectRatio: 1 / 1.8,
+        //         // controller: new ScrollController(keepScrollOffset: false),
+        //         // shrinkWrap: true,
+        //         scrollDirection: Axis.vertical,
+        //         children: List.generate(
+        //             model.data!.products.length,
+        //                 (index) => buildGridProduct(model.data!.products[index], context)
+        //         ),
+        //   ),
+        // ),
         ],
       ),
   );
