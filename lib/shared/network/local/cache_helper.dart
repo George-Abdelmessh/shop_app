@@ -1,12 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class CacheHelper
-{
+class CacheHelper {
   static late SharedPreferences sharedPreferences;
 
-  static init() async
-  {
+  static init() async {
     sharedPreferences = await SharedPreferences.getInstance();
   }
 
